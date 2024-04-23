@@ -12,7 +12,7 @@ public class MemManager {
 		
 		while(run) {
 			System.out.println("<<수영회원관리>>");
-			System.out.println("1.회원목록 2.회원등록 3.정보수정 4.정보삭제 5.종료");
+			System.out.println("1.회원목록 2.회원등록 3.정보수정 4.정보삭제 5.회원조회 6.종료");
 			System.out.print("선택>> ");
 			int menu = Integer.parseInt(sc.nextLine());
 			
@@ -34,12 +34,15 @@ public class MemManager {
 				String birth = sc.nextLine();
 				System.out.print(" 성별>> ");
 				String sex = sc.nextLine();
+				System.out.print(" 이메일>> ");
+				String email = sc.nextLine();
 				
 				Member mem = new Member();
 				mem.setName(name);
 				mem.setPhone(phone);
 				mem.setBirth(birth);
 				mem.setSex(sex);
+				mem.setEmail(email);
 				
 				if(dao.insertMem(mem)) {
 					System.out.println("저장완료");
@@ -77,12 +80,19 @@ public class MemManager {
 				}
 				break;
 			case 5:
+				System.out.print("조회할 회원번호>> ");
+				memNo = sc.nextLine();
+				mem = new Member();
+				mem.setMemNo(Integer.parseInt(memNo));
+				System.out.println(dao.searchMem(mem));
+				break;
+			case 6:
 				// 종료
 				System.out.println("종료");
 				run = false;
 			}
 		}
-
+		sc.close();
 	}
 
 }

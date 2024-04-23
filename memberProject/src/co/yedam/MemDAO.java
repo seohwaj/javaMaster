@@ -51,14 +51,15 @@ public class MemDAO {
 	// 회원등록 기능
 	boolean insertMem(Member mem) {
 		getConn();
-		String sql = "insert into member(mem_no, name, phone, birth, sex) "
-				+ "values(mem_seq.nextval, ?, ?, ?, ?)";
+		String sql = "insert into member(mem_no, name, phone, birth, sex, email) "
+				+ "values(mem_seq.nextval, ?, ?, ?, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, mem.getName());
 			psmt.setString(2, mem.getPhone());
 			psmt.setString(3, mem.getBirth());
 			psmt.setString(4, mem.getSex());
+			psmt.setString(5, mem.getEmail());
 			
 			int r = psmt.executeUpdate();
 			
@@ -111,5 +112,29 @@ public class MemDAO {
 			e.printStackTrace();
 		}		
 		return false;
+	}
+	
+	// 회원조회 기능
+	String searchMem(Member mem){
+		getConn();
+		String sql = "select * from member where mem_no = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, mem.getMemNo());
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				mem = new Member();
+				mem.setMemNo(rs.getInt("mem_no"));
+				mem.setName(rs.getString("name"));
+				mem.setPhone(rs.getString("phone"));
+				mem.setBirth(rs.getString("birth"));
+				mem.setSex(rs.getString("sex"));
+				mem.setEmail(rs.getString("email"));
+			}
+			return mem.showDetail();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 }

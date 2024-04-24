@@ -9,6 +9,7 @@ public class LibraryManager {
 		Scanner sc = new Scanner(System.in);
 		MemDAO memDao = new MemDAO();
 		BookDAO bookDao = new BookDAO();
+		ManageDAO mngDao = new ManageDAO();
 		boolean run = true;
 		
 		while(run) {
@@ -78,6 +79,7 @@ public class LibraryManager {
 						mem.setPhone(phone);
 						mem.setAddress(address);
 						
+						System.out.println();
 						if(memDao.insertMem(mem)) {
 							System.out.println("[등록완료]");
 						} else {
@@ -210,6 +212,7 @@ public class LibraryManager {
 						book.setWriter(writer);
 						book.setPublisher(publisher);
 						
+						System.out.println();
 						if(bookDao.insertBook(book)) {
 							System.out.println("[등록완료]");
 						} else {
@@ -284,13 +287,103 @@ public class LibraryManager {
 					}
 				}
 				break;
+			// 대출/반납관리 메뉴
 			case 3:
+				boolean run3 = true;
+				
+				while(run3) {
+					System.out.println("----------------------------------------------------------");
+					System.out.println("[대출/반납관리]");
+					System.out.println("1.전체도서목록 2.대출도서목록 3.대출도서조회 4.대출 5.반납 6.이전메뉴");
+					System.out.println("----------------------------------------------------------");
+					System.out.print("선택> ");
+					menu = Integer.parseInt(sc.nextLine());
+					
+					switch(menu) {
+					// 전체도서목록
+					case 1:
+						System.out.println();
+						System.out.println("[전체도서목록]");
+						System.out.println("도서번호\t 도서제목\t\t 저자\t 출판사");
+						
+						List<Book> books = bookDao.bookList();
+						
+						for(Book book : books) {
+							System.out.println(book.toString());
+						}
+						break;
+					// 대출도서목록
+					case 2:
+						System.out.println();
+						System.out.println("[대출도서목록]");
+						System.out.println("도서번호\t 도서제목\t\t 대출회원\t 대출일자");
+						
+						List<Manage> mngs = mngDao.borrowList();
+						
+						for(Manage mng : mngs) {
+							System.out.println(mng.toString());
+						}
+						break;
+					// 대출도서조회
+					case 3:
+						System.out.println();
+						System.out.println("[대출도서조회]");
+						System.out.print("제목> ");
+						String bookName = sc.nextLine();
+						
+						System.out.println();
+						System.out.println("[조회결과]");
+						System.out.println("도서번호\t 도서제목\t\t 대출회원\t 대출일자");
+						
+						mngs = mngDao.searchBook(bookName);
+						
+						for(Manage mng : mngs) {
+							System.out.println(mng.toString());
+						}						
+						break;
+					// 대출
+					case 4:
+						System.out.println();
+						System.out.println("[대출]");
+						System.out.print("대출도서번호> ");
+						int bookNo = Integer.parseInt(sc.nextLine());
+						System.out.print("대출회원번호> ");
+						int memNo = Integer.parseInt(sc.nextLine());
+						
+						System.out.println();
+						if(mngDao.borrowBook(bookNo, memNo)) {
+							System.out.println("[대출완료]");
+						} else {
+							System.out.println("[대출실패]");
+						}
+						break;
+					// 반납
+					case 5:
+						System.out.println();
+						System.out.println("[반납]");
+						System.out.print("반납도서번호> ");
+						bookNo = Integer.parseInt(sc.nextLine());
+						
+						System.out.println();
+						if(mngDao.returnBook(bookNo)) {
+							System.out.println("[반납완료]");
+						} else {
+							System.out.println("[반납실패]");
+						}
+						break;
+					// 이전메뉴
+					case 6:
+						System.out.println("[이전메뉴로 돌아갑니다]");
+						run3 = false;
+					}
+				}
 				break;
+			// 종료
 			case 4:
 				System.out.println("[프로그램을 종료합니다]");
 				run = false;
 			}
-		}		
+		}
 		sc.close();
 	}
 

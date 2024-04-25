@@ -16,7 +16,7 @@ public class ManageDAO {
 	ResultSet rs;
 	Date date;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
-	
+		
 	private void getConn() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -33,7 +33,8 @@ public class ManageDAO {
 		List<Manage> list = new ArrayList<>();
 		String sql = "select m.book_no, b.book_name, l.mem_name, m.borrow_date "
 				+ "from manage m join book b on m.book_no = b.book_no "
-				+ "join lib_mem l on m.mem_no = l.mem_no";
+				+ "join lib_mem l on m.mem_no = l.mem_no "
+				+ "order by m.mng_no";
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();

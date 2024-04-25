@@ -93,7 +93,7 @@ public class LibraryManager {
 						System.out.println("[회원수정]");
 						System.out.print("회원번호> ");
 						int memNo = Integer.parseInt(sc.nextLine());
-						
+												
 						mem = new Member();
 						mem.setMemNo(memNo);
 						

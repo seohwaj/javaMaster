@@ -347,6 +347,23 @@ public class LibraryManager {
 						System.out.println("[대출]");
 						System.out.print("대출도서번호> ");
 						int bookNo = Integer.parseInt(sc.nextLine());
+						
+						System.out.println();
+						System.out.println("[회원조회]");
+						System.out.print("이름> ");
+						String name = sc.nextLine();
+						
+						System.out.println();
+						System.out.println("[조회결과]");
+						System.out.println("회원번호\t 회원이름\t 연락처\t\t 주소");
+						
+						List<Member> mems = memDao.searchMem(name);
+						
+						for(Member mem : mems) {
+							System.out.println(mem.toString()); 
+						}
+						
+						System.out.println();
 						System.out.print("대출회원번호> ");
 						int memNo = Integer.parseInt(sc.nextLine());
 						

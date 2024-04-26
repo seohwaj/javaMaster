@@ -133,11 +133,22 @@ public class LibraryManager {
 						boolean run_update = true;
 						
 						while(run_update) {
-							System.out.println();
-							System.out.println("[수정할 정보]");
-							System.out.println("1.회원이름 2.연락처 3.주소 4.수정완료");
-							System.out.print("선택> ");
-							menu = Integer.parseInt(sc.nextLine());
+							do {
+								try {
+									menu = 0;
+									System.out.println();
+									System.out.println("[수정할 정보]");
+									System.out.println("1.회원이름 2.연락처 3.주소 4.수정완료");
+									System.out.print("선택> ");
+									menu = Integer.parseInt(sc.nextLine());
+									
+									if(menu <= 0) {
+										System.out.println("[수정할 정보를 선택해주세요]");
+									}
+								} catch(Exception e) {
+									System.out.println("[수정할 정보의 번호를 입력해주세요]");
+								}
+							} while(menu <= 0);
 							
 							switch(menu) {
 							case 1:
@@ -308,11 +319,22 @@ public class LibraryManager {
 						boolean run_update = true;
 						
 						while(run_update) {
-							System.out.println();
-							System.out.println("[수정할 정보]");
-							System.out.println("1.도서제목 2.저자 3.출판사 4.수정완료");
-							System.out.print("선택> ");
-							menu = Integer.parseInt(sc.nextLine());
+							do {
+								try {
+									menu = 0;
+									System.out.println();
+									System.out.println("[수정할 정보]");
+									System.out.println("1.도서제목 2.저자 3.출판사 4.수정완료");
+									System.out.print("선택> ");
+									menu = Integer.parseInt(sc.nextLine());
+									
+									if(menu <= 0) {
+										System.out.println("[수정할 정보를 선택해주세요]");
+									}
+								} catch(Exception e) {
+									System.out.println("[수정할 정보의 번호를 입력해주세요]");
+								}
+							} while(menu <= 0);
 							
 							switch(menu) {
 							case 1:

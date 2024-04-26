@@ -16,7 +16,7 @@ public class BookDAO {
 	private void getConn() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:thin:@192.168.0.7:1521:xe";
 			conn = DriverManager.getConnection(url, "jsp", "jsp");
 		} catch (Exception e) {
 			e.printStackTrace();

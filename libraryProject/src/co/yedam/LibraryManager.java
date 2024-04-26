@@ -11,14 +11,20 @@ public class LibraryManager {
 		BookDAO bookDao = new BookDAO();
 		ManageDAO mngDao = new ManageDAO();
 		boolean run = true;
+		int menu = 0;
 		
 		while(run) {
-			System.out.println("----------------------------------------------------------");
-			System.out.println("[메인메뉴]");
-			System.out.println("1.회원관리 2.도서관리 3.대출/반납관리 4.종료");
-			System.out.println("----------------------------------------------------------");
-			System.out.print("선택> ");
-			int menu = Integer.parseInt(sc.nextLine());
+			try {
+				System.out.println("----------------------------------------------------------");
+				System.out.println("[메인메뉴]");
+				System.out.println("1.회원관리 2.도서관리 3.대출/반납관리 4.종료");
+				System.out.println("----------------------------------------------------------");
+				System.out.print("선택> ");
+				
+				menu = Integer.parseInt(sc.nextLine());
+			} catch(Exception e) {
+				System.out.println("[선택할 메뉴의 번호를 입력해주세요]");
+			}
 			
 			switch(menu) {
 			// 회원관리 메뉴
@@ -26,12 +32,18 @@ public class LibraryManager {
 				boolean run1 = true;
 				
 				while(run1) {
-					System.out.println("----------------------------------------------------------");
-					System.out.println("[회원관리]");
-					System.out.println("1.회원목록 2.회원조회 3.회원등록 4.회원수정 5.회원삭제 6.이전메뉴");
-					System.out.println("----------------------------------------------------------");
-					System.out.print("선택> ");
-					menu = Integer.parseInt(sc.nextLine());
+					try {
+						menu = 0;
+						System.out.println("----------------------------------------------------------");
+						System.out.println("[회원관리]");
+						System.out.println("1.회원목록 2.회원조회 3.회원등록 4.회원수정 5.회원삭제 6.이전메뉴");
+						System.out.println("----------------------------------------------------------");
+						System.out.print("선택> ");
+
+						menu = Integer.parseInt(sc.nextLine());
+					} catch(Exception e) {
+						System.out.println("[선택할 메뉴의 번호를 입력해주세요]");
+					}
 					
 					switch(menu) {
 					// 회원목록
@@ -52,6 +64,11 @@ public class LibraryManager {
 						System.out.println("[회원조회]");
 						System.out.print("이름> ");
 						String name = sc.nextLine();
+						
+						if(name.isEmpty()) {
+							System.out.println("[조회할 회원의 이름이 입력되지 않았습니다]");
+							break;
+						}
 						
 						System.out.println();
 						System.out.println("[조회결과]");
@@ -74,6 +91,11 @@ public class LibraryManager {
 						System.out.print("주소> ");
 						String address = sc.nextLine();
 						
+						if(name.isEmpty() || phone.isEmpty() || address.isEmpty()) {
+							System.out.println("[회원 등록 시 공백 입력은 불가합니다]");
+							break;
+						}
+						
 						Member mem = new Member();
 						mem.setName(name);
 						mem.setPhone(phone);
@@ -89,11 +111,22 @@ public class LibraryManager {
 						break;
 					// 회원수정
 					case 4:
-						System.out.println();
-						System.out.println("[회원수정]");
-						System.out.print("회원번호> ");
-						int memNo = Integer.parseInt(sc.nextLine());
-												
+						int memNo = 0;
+						
+						do {
+							try {
+								System.out.println();
+								System.out.println("[회원수정]");
+								System.out.print("회원번호> ");
+								memNo = Integer.parseInt(sc.nextLine());
+								if(memNo <= 0) {
+									System.out.println("[존재하지 않는 회원번호입니다]");
+								}
+							} catch(Exception e) {
+								System.out.println("[수정할 회원의 회원번호를 입력해주세요]");
+							}
+						} while(memNo <= 0);
+					
 						mem = new Member();
 						mem.setMemNo(memNo);
 						
@@ -135,11 +168,21 @@ public class LibraryManager {
 						break;
 					// 회원삭제
 					case 5:
-						System.out.println();
-						System.out.println("[회원삭제]");
-						System.out.print("회원번호> ");
-						memNo = Integer.parseInt(sc.nextLine());
-												
+						try {
+							System.out.println();
+							System.out.println("[회원삭제]");
+							System.out.print("회원번호> ");
+							memNo = Integer.parseInt(sc.nextLine());
+							
+							if(memNo <= 0) {
+								System.out.println("[존재하지 않는 회원번호입니다]");
+								break;
+							}
+						} catch(Exception e) {
+							System.out.println("[삭제할 회원의 회원번호를 입력해주세요]");
+							break;
+						}
+																		
 						System.out.println();
 						if(memDao.deleteMem(memNo)) {
 							System.out.println("[삭제완료]");
@@ -151,6 +194,11 @@ public class LibraryManager {
 					case 6:
 						System.out.println("[이전메뉴로 돌아갑니다]");
 						run1 = false;
+						break;
+					case 0:
+						break;		
+					default:
+						System.out.println("[선택할 메뉴의 번호를 입력해주세요]");
 					}
 				}
 				break;
@@ -159,12 +207,18 @@ public class LibraryManager {
 				boolean run2 = true;
 				
 				while(run2) {
-					System.out.println("----------------------------------------------------------");
-					System.out.println("[도서관리]");
-					System.out.println("1.도서목록 2.도서조회 3.도서등록 4.도서수정 5.도서삭제 6.이전메뉴");
-					System.out.println("----------------------------------------------------------");
-					System.out.print("선택> ");
-					menu = Integer.parseInt(sc.nextLine());
+					try {
+						menu = 0;
+						System.out.println("----------------------------------------------------------");
+						System.out.println("[도서관리]");
+						System.out.println("1.도서목록 2.도서조회 3.도서등록 4.도서수정 5.도서삭제 6.이전메뉴");
+						System.out.println("----------------------------------------------------------");
+						System.out.print("선택> ");
+						
+						menu = Integer.parseInt(sc.nextLine());						
+					} catch(Exception e) {
+						System.out.println("[선택할 메뉴의 번호를 입력해주세요]");
+					}
 					
 					switch(menu) {
 					// 도서목록
@@ -185,6 +239,11 @@ public class LibraryManager {
 						System.out.println("[도서조회]");
 						System.out.print("제목> ");
 						String bookName = sc.nextLine();
+						
+						if(bookName.isEmpty()) {
+							System.out.println("[조회할 도서의 제목이 입력되지 않았습니다]");
+							break;
+						}
 						
 						System.out.println();
 						System.out.println("[조회결과]");
@@ -207,6 +266,11 @@ public class LibraryManager {
 						System.out.print("출판사> ");
 						String publisher = sc.nextLine();
 						
+						if(bookName.isEmpty() || writer.isEmpty() || publisher.isEmpty()) {
+							System.out.println("[도서 등록 시 공백 입력은 불가합니다]");
+							break;
+						}
+						
 						Book book = new Book();
 						book.setName(bookName);
 						book.setWriter(writer);
@@ -220,11 +284,23 @@ public class LibraryManager {
 						}
 						break;
 					// 도서수정
-					case 4:
-						System.out.println();
-						System.out.println("[도서수정]");
-						System.out.print("도서번호> ");
-						int bookNo = Integer.parseInt(sc.nextLine());
+					case 4:						
+						int bookNo = 0;
+						
+						do {
+							try {
+								System.out.println();
+								System.out.println("[도서수정]");
+								System.out.print("도서번호> ");
+								bookNo = Integer.parseInt(sc.nextLine());
+								
+								if(bookNo <= 0) {
+									System.out.println("[존재하지 않는 도서번호입니다]");
+								}
+							} catch(Exception e) {
+								System.out.println("[수정할 도서의 도서번호를 입력해주세요]");
+							}
+						} while(bookNo <= 0);
 						
 						book = new Book();
 						book.setBookNo(bookNo);
@@ -267,10 +343,20 @@ public class LibraryManager {
 						break;
 					// 도서삭제
 					case 5:
-						System.out.println();
-						System.out.println("[도서삭제]");
-						System.out.print("도서번호> ");
-						bookNo = Integer.parseInt(sc.nextLine());
+						try {
+							System.out.println();
+							System.out.println("[도서삭제]");
+							System.out.print("도서번호> ");
+							bookNo = Integer.parseInt(sc.nextLine());
+							
+							if(bookNo <= 0) {
+								System.out.println("[존재하지 않는 도서번호입니다]");
+								break;
+							}
+						} catch(Exception e) {
+							System.out.println("[삭제할 도서의 도서번호를 입력해주세요]");
+							break;
+						}						
 						
 						System.out.println();
 						if(bookDao.deleteBook(bookNo)) {
@@ -284,6 +370,11 @@ public class LibraryManager {
 					case 6:
 						System.out.println("[이전메뉴로 돌아갑니다]");
 						run2 = false;
+						break;
+					case 0:
+						break;		
+					default:
+						System.out.println("[선택할 메뉴의 번호를 입력해주세요]");
 					}
 				}
 				break;
@@ -292,12 +383,18 @@ public class LibraryManager {
 				boolean run3 = true;
 				
 				while(run3) {
-					System.out.println("----------------------------------------------------------");
-					System.out.println("[대출/반납관리]");
-					System.out.println("1.전체도서목록 2.대출도서목록 3.대출도서조회 4.대출 5.반납 6.이전메뉴");
-					System.out.println("----------------------------------------------------------");
-					System.out.print("선택> ");
-					menu = Integer.parseInt(sc.nextLine());
+					try {
+						menu = 0;
+						System.out.println("----------------------------------------------------------");
+						System.out.println("[대출/반납관리]");
+						System.out.println("1.전체도서목록 2.대출도서목록 3.대출도서조회 4.대출 5.반납 6.이전메뉴");
+						System.out.println("----------------------------------------------------------");
+						System.out.print("선택> ");
+
+						menu = Integer.parseInt(sc.nextLine());
+					} catch(Exception e) {
+						System.out.println("[선택할 메뉴의 번호를 입력해주세요]");
+					}
 					
 					switch(menu) {
 					// 전체도서목록
@@ -331,6 +428,11 @@ public class LibraryManager {
 						System.out.print("제목> ");
 						String bookName = sc.nextLine();
 						
+						if(bookName.isEmpty()) {
+							System.out.println("[조회할 도서의 제목이 입력되지 않았습니다]");
+							break;
+						}
+						
 						System.out.println();
 						System.out.println("[조회결과]");
 						System.out.println("도서번호\t 도서제목\t\t 대출회원\t 대출일자");
@@ -343,10 +445,22 @@ public class LibraryManager {
 						break;
 					// 대출
 					case 4:
-						System.out.println();
-						System.out.println("[대출]");
-						System.out.print("대출도서번호> ");
-						int bookNo = Integer.parseInt(sc.nextLine());
+						int bookNo = 0;
+						
+						do {
+							try {
+								System.out.println();
+								System.out.println("[대출]");
+								System.out.print("대출도서번호> ");
+								bookNo = Integer.parseInt(sc.nextLine());
+								
+								if(bookNo <= 0) {
+									System.out.println("[존재하지 않는 도서번호입니다]");
+								}
+							} catch(Exception e) {
+								System.out.println("[대출할 도서의 도서번호를 입력해주세요]");
+							}				
+						} while(bookNo <= 0);
 						
 						System.out.println();
 						System.out.println("[회원조회]");
@@ -363,9 +477,21 @@ public class LibraryManager {
 							System.out.println(mem.toString()); 
 						}
 						
-						System.out.println();
-						System.out.print("대출회원번호> ");
-						int memNo = Integer.parseInt(sc.nextLine());
+						int memNo = 0;
+						
+						do {
+							try {
+								System.out.println();
+								System.out.print("대출회원번호> ");
+								memNo = Integer.parseInt(sc.nextLine());
+								
+								if(memNo <= 0) {
+									System.out.println("[존재하지 않는 회원번호입니다]");
+								}
+							} catch(Exception e) {
+								System.out.println("[대출할 회원의 회원번호를 입력해주세요]");
+							}				
+						} while(memNo <= 0);
 						
 						System.out.println();
 						if(mngDao.borrowBook(bookNo, memNo)) {
@@ -376,10 +502,20 @@ public class LibraryManager {
 						break;
 					// 반납
 					case 5:
-						System.out.println();
-						System.out.println("[반납]");
-						System.out.print("반납도서번호> ");
-						bookNo = Integer.parseInt(sc.nextLine());
+						try {
+							System.out.println();
+							System.out.println("[반납]");
+							System.out.print("반납도서번호> ");
+							bookNo = Integer.parseInt(sc.nextLine());
+							
+							if(bookNo <= 0) {
+								System.out.println("[존재하지 않는 도서번호입니다]");
+								break;
+							}
+						} catch(Exception e) {
+							System.out.println("[반납할 도서의 도서번호를 입력해주세요]");
+							break;
+						}
 						
 						System.out.println();
 						if(mngDao.returnBook(bookNo)) {
@@ -392,6 +528,11 @@ public class LibraryManager {
 					case 6:
 						System.out.println("[이전메뉴로 돌아갑니다]");
 						run3 = false;
+						break;
+					case 0:
+						break;		
+					default:
+						System.out.println("[선택할 메뉴의 번호를 입력해주세요]");
 					}
 				}
 				break;
@@ -399,6 +540,11 @@ public class LibraryManager {
 			case 4:
 				System.out.println("[프로그램을 종료합니다]");
 				run = false;
+				break;
+			case 0:
+				break;		
+			default:
+				System.out.println("[선택할 메뉴의 번호를 입력해주세요]");
 			}
 		}
 		sc.close();

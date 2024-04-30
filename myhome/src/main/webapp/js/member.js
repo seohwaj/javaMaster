@@ -68,3 +68,15 @@ document.querySelector('thead input[type="checkbox"]').addEventListener('change'
 	})
 })
 
+document.querySelector('#editMember').addEventListener('click', function(){
+	let memberNo = document.querySelector('#memberNo').value;
+	let memberName = document.querySelector('#memberName').value;
+	let memberPoint = document.querySelector('#memberPoint').value;
+	
+	document.querySelectorAll('table#tlist tbody tr').forEach(function(item) {
+		if(item.children[0].innerText == memberNo) {
+			item.children[1].innerText = memberName;
+			item.children[2].innerText = memberPoint;
+		}
+	})
+})

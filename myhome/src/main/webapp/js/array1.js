@@ -63,3 +63,4 @@ empList.reduce((acc, curVal) => {
 }, genderAry)
 
 console.log(genderAry);
+

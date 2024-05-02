@@ -20,6 +20,7 @@ genderAry.forEach(gender => {
 
 // 함수(배열)
 function makeList(ary = []) {
+	document.querySelector('#show tbody').innerHTML = '';
 	let props = ['id', 'first_name', 'email', 'salary'];
 	
 	ary.forEach(emp => {
@@ -34,6 +35,8 @@ function makeList(ary = []) {
 	});
 }
 
+makeList(empList);
+
 genderList.addEventListener('change', function() {
 	let gender = document.querySelector('select option:checked').innerText;
 	let ary = [];
@@ -45,3 +48,7 @@ genderList.addEventListener('change', function() {
 	makeList(ary);
 });
 
+document.querySelector('#genderList').addEventListener('change', function(){
+	let filterAry = empList.filter(emp => emp.gender == this.value);
+	makeList(filterAry);
+});

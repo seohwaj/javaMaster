@@ -31,7 +31,7 @@ public class EmpListJsonServ extends HttpServlet {
 		String json = gson.toJson(elist);
 		
 		// 콘솔 출력
-		System.out.println(json);
+		// System.out.println(json);
 		// 웹브라우저 출력
 		resp.getWriter().println(json);
 	}

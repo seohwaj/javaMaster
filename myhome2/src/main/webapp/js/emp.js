@@ -34,10 +34,11 @@ function addRow() {
 	let ehire = document.querySelector('#ehire').value;
 	let email = document.querySelector('#email').value;
 	
-	let param = '../empsave.json?job=add&name=' + ename + '&phone=' + ephone + '&salary=' + esalary + '&hire=' + ehire + '&email=' + email;
+	let param = 'job=add&name=' + ename + '&phone=' + ephone + '&salary=' + esalary + '&hire=' + ehire + '&email=' + email;
 	
-	addHtp.open('get', param);
-	addHtp.send();
+	addHtp.open('post', '../empsave.json');
+	addHtp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	addHtp.send(param);
 	addHtp.onload = function() {
 		let result = JSON.parse(addHtp.responseText);
 		console.log(result);
@@ -46,7 +47,7 @@ function addRow() {
 			document.querySelector('#elist').appendChild(tr);
 		}
 	}
-}
+} // end of addRow
 
 function makeRow(emp) {
 	let props = ['empNo', 'empName', 'email', 'salary'];

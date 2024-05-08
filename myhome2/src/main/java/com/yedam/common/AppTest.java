@@ -1,6 +1,8 @@
 package com.yedam.common;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.yedam.dao.EmpDAO;
 import com.yedam.vo.EmpVO;
@@ -35,18 +37,24 @@ public class AppTest {
 //			System.out.println("수정실패");
 //		}
 		
-		// 삭제
-		if(edao.deleteEmp(21)) {
-			System.out.println("삭제성공");
-		} else {
-			System.out.println("삭제실패");
-		}		
+//		// 삭제
+//		if(edao.deleteEmp(21)) {
+//			System.out.println("삭제성공");
+//		} else {
+//			System.out.println("삭제실패");
+//		}		
+//		
+//		// 목록
+//		List<EmpVO> list = edao.selectList();
+//		
+//		for(EmpVO vo : list) {
+//			System.out.println(vo.toString());
+//		}
 		
-		// 목록
-		List<EmpVO> list = edao.selectList();
-		
-		for(EmpVO vo : list) {
-			System.out.println(vo.toString());
+		Map<String, Integer> resultMap = edao.getCntPerDept();
+		Set<String> keyset = resultMap.keySet();
+		for(String key : keyset) {
+			System.out.println("key: " + key + ", val: " + resultMap.get(key));
 		}
 	}
 }

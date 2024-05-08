@@ -7,7 +7,7 @@ function initForm(){
 	let show = document.querySelector('#show');
 	show.appendChild(svc.makeTable());
 	document.querySelector('#show>table').appendChild(svc.makeHeader2());
-	document.querySelector('#show>table').appendChild(svc.makeBody());
+	document.querySelector('#show>table').appendChild(svc.makeBody(6));
 }
 
 const svc = {
@@ -44,18 +44,18 @@ const svc = {
 		thd.appendChild(tr);
 		return thd;
 	},
-	makeBody: function() {
+	makeBody: function(month = 4) {
 		let tbd = document.createElement('tbody');
 		let tr = document.createElement('tr');
 		
-		let spaces = 1;
+		let spaces = this.getFirstDate(month); // getFirstDate(month) -> 1일의 위치
 		for(let i = 0; i < spaces; i++) {
 			let td = document.createElement('td');
 			td.innerText = ' ';
 			tr.appendChild(td);
 		}
 		
-		for(let d = 1; d <= 30; d++) {
+		for(let d = 1; d <= this.getLastDate(month); d++) { // getLastDate(month) -> 월의 마지막 날을 반환
 			td = document.createElement('td');
 			td.innerText = d;
 			tr.appendChild(td);
@@ -68,5 +68,13 @@ const svc = {
 		tbd.appendChild(tr);			
 		
 		return tbd;
+	},
+	getFirstDate(month) {
+		let date = new Date(2024, month - 1, 1);
+		return date.getDay();
+	},
+	getLastDate(month) {
+		let date = new Date(2024, month, 0);
+		return date.getDate();
 	}
 }

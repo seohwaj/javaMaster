@@ -177,4 +177,78 @@ public class EmpDAO extends DAO {
 		}
 		return false;
 	}
+	
+	// 부서별 인원 현황
+	// {부서: 인원}
+	public Map<String, Integer> getCntPerDept() {
+		conn();
+		Map<String, Integer> map = new HashMap<>();
+		String sql = "select d.department_name, count(1) as cnt "
+				+ "from hr.employees e "
+				+ "join hr.departments d "
+				+ "on e.department_id = d.department_id "
+				+ "group by d.department_name";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				map.put(rs.getString("department_name"), rs.getInt("cnt"));
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disCon();
+		}
+		return map;		
+	}
+	
+	public List<List<String>> getDataTable() {
+		List<List<String>> list = new ArrayList<>();
+		
+		conn();
+		String sql = "select employee_id, first_name, email, phone_number, salary "
+				+ "from hr.employees";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				List<String> row = new ArrayList<>();
+				
+				row.add(rs.getString("employee_id"));
+				row.add(rs.getString("first_name"));
+				row.add(rs.getString("email"));
+				row.add(rs.getString("phone_number"));
+				row.add(rs.getString("salary"));
+				
+				list.add(row);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disCon();
+		}
+		return list;
+	}
+	
+	// jsp.employees 테이블의 사원번호 값을 찾아서 삭제하는 기능 추가
+	public boolean delEmp(int eno) {
+		conn();
+		String sql = "delete from employees where employee_id = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, eno);
+			int r = psmt.executeUpdate();
+			
+			if(r > 0) {
+				return true; 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disCon();
+		}
+		return false;
+	}
 }

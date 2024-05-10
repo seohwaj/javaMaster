@@ -9,6 +9,7 @@ import com.yedam.vo.BoardVO;
 public class BoardTest {
 	public static void main(String[] args) {
 		BoardService svc = new BoardServiceImpl();
+		svc.boardList(2).forEach(board -> System.out.println(board));
 		// 등록
 //		BoardVO vo = new BoardVO();
 //		vo.setTitle("등록제목");
@@ -22,12 +23,12 @@ public class BoardTest {
 //		}
 		
 		// 조회
-		BoardVO vo = svc.getBoard(1);
-		if(vo != null) {
-			System.out.println(vo.toString());
-		} else {
-			System.out.println("조회결과 없음");
-		}
+//		BoardVO vo = svc.getBoard(1);
+//		if(vo != null) {
+//			System.out.println(vo.toString());
+//		} else {
+//			System.out.println("조회결과 없음");
+//		}
 		
 		// 목록
 //		List<BoardVO> list = svc.boardList();

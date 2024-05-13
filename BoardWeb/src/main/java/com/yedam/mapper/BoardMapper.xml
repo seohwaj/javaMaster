@@ -7,11 +7,23 @@
     select * from tbl_boards order by board_no
   </select>
   
-  <select id="boardListPaging" parameterType="int">
+  <select id="boardListPaging" parameterType="search">
     select r.*
 	from (select rownum rn, a.*
     	  from (select *
            		from tbl_boards b
+           		where 
+           		<choose>
+           		  <when test="searchCondition == 'T'.toString()">
+           		    title like '%'||#{keyword}||'%'
+           		  </when>
+           		  <when test="searchCondition == 'W'.toString()">
+           		    writer like '%'||#{keyword}||'%'
+           		  </when>
+				  <otherwise>
+				    title like '%'||#{keyword}||'%' or writer like '%'||#{keyword}||'%'
+				  </otherwise>
+           		</choose>
            		order by b.board_no) a
           <![CDATA[
      	  where rownum <= (#{page} * 5)) r
@@ -19,8 +31,20 @@
 	where r.rn > (#{page} - 1) * 5
   </select>
   
-  <select id="getTotalCnt" resultType="int">
+  <select id="getTotalCnt" parameterType="search">
     select count(1) from tbl_boards
+    where
+    <choose>
+	  <when test="searchCondition == 'T'.toString()">
+	    title like '%'||#{keyword}||'%'
+	  </when>
+	  <when test="searchCondition == 'W'.toString()">
+	    writer like '%'||#{keyword}||'%'
+	  </when>
+	  <otherwise>
+	    title like '%'||#{keyword}||'%' or writer like '%'||#{keyword}||'%'
+	  </otherwise>
+	</choose>
   </select>
   
   <insert id="insertBoard" parameterType="board">

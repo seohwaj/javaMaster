@@ -3,11 +3,25 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+
+<style>
+  div.reply div {
+    margin: auto;
+  }
+  div.reply ul {
+    list-style-type: none;
+    margin-top: 5px;
+  }
+  div.reply li {
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+  div.reply span {
+    display: inline-block;
+  }
+</style>
+
 <h3>상세화면</h3>
-<%
-	BoardVO vo = (BoardVO) request.getAttribute("result");
-%>
 <c:choose>
   <c:when test="${empty result }">
     <p>조회된 결과가 없습니다.</p>
@@ -16,6 +30,8 @@
     <form name="myFrm">
       <input type="hidden" name="bno" value="${result.boardNo }">
       <input type="hidden" name="page" value="${page }">
+      <input type="hidden" name="searchCondition" value="${searchCondition }">
+      <input type="hidden" name="keyword" value="${keyword }">
     </form>
     <table class="table">
       <tr>
@@ -31,7 +47,19 @@
         <td>${result.writer }</td>
       </tr>
       <tr>
- 	    <td colspan="4">${result.content }</td>
+        <th>내용</th>
+ 	    <c:choose>
+		  <c:when test="${empty result.img }">
+		    <td colspan="3">${result.content }</td>
+		  </c:when>
+		  <c:otherwise>
+		    <td colspan="2">${result.content }</td> 	        
+		    <td>
+ 	          <img src="images/${result.img }" alt="이미지" width="200px">
+ 	        </td>
+		  </c:otherwise> 	    
+ 	    </c:choose>
+ 	    </td>
  	  </tr>
  	  <tr>
  	    <th>작성일시</th>
@@ -48,5 +76,36 @@
 	</table>
   </c:otherwise>
 </c:choose>
+
+<!-- 댓글 목록 -->
+<div class="container reply">
+  <div class="header">
+    <input class="col-sm-8" id="reply">
+    <button class="col-sm-3" id="addReply">댓글등록</button>
+  </div>
+
+  <div class="content">
+    <ul>
+      <li>
+        <span class="col-sm-2">댓글번호</span>
+        <span class="col-sm-5">댓글내용</span>
+        <span class="col-sm-2">작성자</span>
+        <span class="col-sm-2">삭제</span>
+      </li>
+      <li>
+        <hr />
+      </li>
+      <li style="display: none;">
+        <span class="col-sm-2">1</span>
+        <span class="col-sm-5">사과네요</span>
+        <span class="col-sm-2">user02</span>
+        <span class="col-sm-2"><button onclick="deleteRow(event)" class="btn btn-warning">삭제</button></span>
+      </li>
+    </ul>
+  </div> <!-- div.content -->
+</div> <!-- div.container.reply -->
+<script>
+  const bno = '${result.boardNo }';
+  const writer = '${logId }';
+</script>
 <script src="js/board.js"></script>
-<jsp:include page="../includes/footer.jsp"></jsp:include>

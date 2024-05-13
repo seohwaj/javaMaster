@@ -17,6 +17,8 @@ public class BoardInfoControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String bno = req.getParameter("bno");
 		String page = req.getParameter("page");
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
 		
 		BoardService svc = new BoardServiceImpl();
 		svc.addViewCnt(Integer.parseInt(bno)); // 조회수 증가
@@ -24,8 +26,11 @@ public class BoardInfoControl implements Control {
 		
 		req.setAttribute("result", vo);
 		req.setAttribute("page", page);
+		req.setAttribute("searchCondition", sc);
+		req.setAttribute("keyword", kw);
 		
 		String path = "WEB-INF/board/board.jsp";
+		path = "board/board.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 	}
 

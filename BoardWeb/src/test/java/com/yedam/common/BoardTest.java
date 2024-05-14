@@ -10,7 +10,11 @@ public class BoardTest {
 		SqlSession session = DataSource.getInstance().openSession(true);
 		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
 
-		mapper.replyList(200).forEach(reply -> System.out.println(reply));
+		SearchVO search = new SearchVO();
+		search.setBoardNo(200);
+		search.setRpage(2);
+		
+		mapper.replyListPaging(search).forEach(reply -> System.out.println(reply));
 		
 	}
 }

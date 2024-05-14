@@ -21,6 +21,36 @@
   }
 </style>
 
+<style>
+.center {
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}  
+</style>
+
 <h3>상세화면</h3>
 <c:choose>
   <c:when test="${empty result }">
@@ -103,9 +133,17 @@
       </li>
     </ul>
   </div> <!-- div.content -->
+  <div class="footer">
+    <div class="center">
+      <div class="pagination">
+
+      </div>
+    </div>
+  </div>
 </div> <!-- div.container.reply -->
 <script>
   const bno = '${result.boardNo }';
   const writer = '${logId }';
 </script>
+<script src="js/replyService.js"></script>
 <script src="js/board.js"></script>

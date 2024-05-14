@@ -24,7 +24,7 @@
 				    title like '%'||#{keyword}||'%' or writer like '%'||#{keyword}||'%'
 				  </otherwise>
            		</choose>
-           		order by b.board_no) a
+           		order by b.board_no desc) a
           <![CDATA[
      	  where rownum <= (#{page} * 5)) r
           ]]>

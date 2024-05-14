@@ -23,6 +23,7 @@ public class RemoveFormControl implements Control {
 		req.setAttribute("bno", vo);
 		
 		String path = "WEB-INF/board/removeBoard.jsp";
+		path = "board/removeBoard.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 
 	}

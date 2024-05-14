@@ -8,7 +8,7 @@
       <th>삭제하시겠습니까?</th>
     </tr>
     <tr>
-      <td><input type="submit" class="btn btn-danger" value="삭제"></td>
+      <td align="center"><input type="submit" class="btn btn-danger" value="삭제"></td>
     </tr>
   </table>
   <input type="hidden" name="bno" value="${bno.boardNo }">

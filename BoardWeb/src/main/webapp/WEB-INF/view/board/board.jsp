@@ -21,35 +21,8 @@
   }
 </style>
 
-<style>
-.center {
-  text-align: center;
-}
-
-.pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  margin: 0 4px;
-}
-
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
-}
-
-.pagination a:hover:not(.active) {
-  background-color: #ddd;
-}  
-</style>
+<link href="css/paging.css" rel="stylesheet" />
+<link href="css/modal.css" rel="stylesheet" />
 
 <h3>상세화면</h3>
 <c:choose>
@@ -141,9 +114,25 @@
     </div>
   </div>
 </div> <!-- div.container.reply -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p></p>
+    <p><input type="text" name="modal_reply"></p>
+    <p><button class="btn btn-primary">수정</button></p>
+  </div>
+
+</div>
+
 <script>
   const bno = '${result.boardNo }';
   const writer = '${logId }';
 </script>
+<script type="text/javascript" src="js/jquery-3.7.1.js"></script>
 <script src="js/replyService.js"></script>
-<script src="js/board.js"></script>
+<script src="js/jboard.js"></script>
+

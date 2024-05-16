@@ -41,4 +41,10 @@
     from tbl_replyes
     where board_no = #{boardNo}
   </select>
+  
+  <update id="updateReply" parameterType="reply">
+    update tbl_replyes
+    set reply = #{reply}
+    where reply_no = #{replyNo}
+  </update>
 </mapper>

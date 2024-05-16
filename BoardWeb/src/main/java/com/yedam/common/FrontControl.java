@@ -14,6 +14,7 @@ import com.yedam.web.AddBoardControl;
 import com.yedam.web.AddFormControl;
 import com.yedam.web.AddReplyControl;
 import com.yedam.web.BoardInfoControl;
+import com.yedam.web.EditReplyControl;
 import com.yedam.web.LoginControl;
 import com.yedam.web.LoginForm;
 import com.yedam.web.LogoutControl;
@@ -63,6 +64,7 @@ public class FrontControl extends HttpServlet {
 		map.put("/removeReply.do", new RemoveReplyControl());
 		map.put("/addReply.do", new AddReplyControl());
 		map.put("/getTotalCnt.do", new TotalCountControl());
+		map.put("/editReply.do", new EditReplyControl());
 		
 		// 관리자 권한
 		map.put("/memberList.do", new MemberListControl());

@@ -13,5 +13,8 @@ public interface ReplyMapper {
 	int deleteReply(int replyNo);
 	// 댓글 등록
 	int insertReply(ReplyVO rvo);
+	// 댓글수 카운트
 	int countReply(int boardNo);
+	// 댓글 수정
+	int updateReply(ReplyVO rvo);
 }

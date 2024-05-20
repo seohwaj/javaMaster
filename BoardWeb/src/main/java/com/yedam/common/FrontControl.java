@@ -23,11 +23,15 @@ import com.yedam.web.MemberListControl;
 import com.yedam.web.ModifyControl;
 import com.yedam.web.ModifyFormControl;
 import com.yedam.web.ProductListControl;
+import com.yedam.web.RegisterCenter;
 import com.yedam.web.RemoveControl;
 import com.yedam.web.RemoveFormControl;
 import com.yedam.web.RemoveReplyControl;
 import com.yedam.web.ReplyListControl;
 import com.yedam.web.TotalCountControl;
+import com.yedam.web.CartList;
+import com.yedam.web.EditCart;
+import com.yedam.web.DelCart;
 
 public class FrontControl extends HttpServlet {
 	Map<String, Control> map;
@@ -40,7 +44,7 @@ public class FrontControl extends HttpServlet {
 	// init
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// url패턴과 실행할 Control 구현클래스 설정
+		// url 패턴과 실행할 Control 구현클래스 설정
 		map.put("/main.do", new MainControl());
 		// 등록 관련
 		map.put("/addForm.do", new AddFormControl());
@@ -56,21 +60,23 @@ public class FrontControl extends HttpServlet {
 		// 로그인 관련
 		map.put("/logForm.do", new LoginForm());
 		map.put("/login.do", new LoginControl());
-		map.put("/logout.do", new LogoutControl());
-	
-		
+		map.put("/logout.do", new LogoutControl());		
 		// 댓글 관련
 		map.put("/replyList.do", new ReplyListControl());
 		map.put("/removeReply.do", new RemoveReplyControl());
 		map.put("/addReply.do", new AddReplyControl());
 		map.put("/getTotalCnt.do", new TotalCountControl());
 		map.put("/editReply.do", new EditReplyControl());
-		
 		// 관리자 권한
 		map.put("/memberList.do", new MemberListControl());
-		
-		// 상품관련
+		// 상품 관련
 		map.put("/productList.do", new ProductListControl());
+		// 장바구니 관련
+		map.put("/cartList.do", new CartList()); // 목록
+		map.put("/editCart.do", new EditCart()); // 수량 변경
+		map.put("/delCart.do", new DelCart()); // 삭제
+		// 데이터 생성
+		map.put("/registerCenter.do", new RegisterCenter());
 	}
 	
 	// service

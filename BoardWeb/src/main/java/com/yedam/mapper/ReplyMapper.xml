@@ -47,4 +47,30 @@
     set reply = #{reply}
     where reply_no = #{replyNo}
   </update>
+  
+  
+  <select id="selectList" resultType="com.yedam.vo.CartVO">
+    select *
+    from tbl_cart
+    order by no
+  </select>
+  
+  <update id="updateCart" parameterType="com.yedam.vo.CartVO">
+    update tbl_cart
+    set qty = qty + #{qty}
+    where no = #{no}
+  </update>
+  
+  <delete id="deleteCart" parameterType="int">
+    delete from tbl_cart
+    where no = #{no}
+  </delete>
+  
+  <insert id="insertCenter">
+    insert into tbl_centers(id, center_name, sido, phone_number, address, center_type)
+    <foreach collection="array" item="center" 
+    open="select " separator=" from dual union all select " close=" from dual">
+      #{center.id}, #{center.centerName}, #{center.sido}, #{center.phoneNumber}, #{center.address}, #{center.centerType}
+    </foreach>
+  </insert>
 </mapper>
